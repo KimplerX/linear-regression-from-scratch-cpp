@@ -1,10 +1,10 @@
-#include "DataLoader/DataLoader.h"
+#include "../include/linear-regression-from-scratch-cpp/DataLoader/DataLoader.h"
 #include <iostream>
 
 int main() {
     std::vector<double> OutputData;
     std::vector<std::vector<double>> InputData;
-    std::string filename = "../linear-regression-from-scratch-cpp/data/training.csv";
+    std::string filename = "../data/training.csv";
     TDataLoader loader;
     loader.CSVload(filename, InputData, OutputData);
 
