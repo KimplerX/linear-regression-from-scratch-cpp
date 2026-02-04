@@ -2,7 +2,7 @@
 
 // ОСЬ ЦЯ ФУНКЦІЯ ОБОВ'ЯЗКОВА
 int main() {
-    std::cout << "Hello from main!" << std::endl;
+    std::cout << "\033[42m" << "Hello from main!" << std::endl;
     
     // Тут буде логіка вашої програми
     // TDataLoader loader;

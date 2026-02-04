@@ -16,7 +16,7 @@ if %errorlevel% neq 0 (
 )
 
 echo.
-echo [SUCCESS] Build complete. Running program...
+echo [SUCCESS] Build complete!
 echo ==========================================
 echo.
 

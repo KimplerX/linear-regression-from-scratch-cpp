@@ -11,12 +11,6 @@ set(MY_LIB_FILES
     src/Optimizer/GradientDescent.cpp
 )
 
-# 1. Збираємо основну програму
-add_executable(run_app src/main.cpp ${MY_LIB_FILES})
+add_executable(LinearRegression src/main.cpp ${MY_LIB_FILES})
 
-# 2. Збираємо тести
-enable_testing()
-add_executable(run_tests tests/test.cpp ${MY_LIB_FILES})
-
-# 3. Копіюємо папку data (щоб програма бачила csv файли)
 file(COPY data DESTINATION ${CMAKE_BINARY_DIR})

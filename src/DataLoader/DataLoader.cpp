@@ -8,12 +8,16 @@ bool TDataLoader::CSVload(const std::string& filename, Matrix& X, Vector& Y) {
 
     if (!file.is_open()) {
         std::cerr << "=============================="
-                     "\nError: could not open file!"
+                  << "\033[31m" 
+                  <<  "\nError: could not open file!" 
+                  << "\033[0m" <<
                      "\n------------------------------\n";
         return false;
     } else {
         std::cout << "=============================="
-                     "\nData uploaded successfully";
+                  << "\033[32m" 
+                  << "\nData uploaded successfully" 
+                  << "\033[0m"
                      "\n------------------------------\n";
 
         std::string line;
