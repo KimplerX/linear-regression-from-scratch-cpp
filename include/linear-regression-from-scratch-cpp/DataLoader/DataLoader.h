@@ -1,5 +1,4 @@
-#ifndef DATA_LOADER_H
-#define DATA_LOADER_H
+#pragma once
 
 #include <string>
 #include <vector>
@@ -13,5 +12,3 @@ public:
 
     bool CSVload(const std::string& filename, Matrix& X, Vector& Y);
 };
-
-#endif
