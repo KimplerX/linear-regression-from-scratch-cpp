@@ -1,7 +1,9 @@
 #include "../include/linear-regression-from-scratch-cpp/DataLoader/DataLoader.h"
 #include <iostream>
+#include <cmath>
 
-void CSVload_test() {
+// ========== Тест 1: Завантаження CSV ==========
+bool CSVload_test() {
     std::vector<double> OutputData;
     std::vector<std::vector<double>> InputData;
     std::string filename = "data/training.csv";
@@ -45,15 +47,58 @@ void CSVload_test() {
     };
 
     if (expected_InputData == InputData && expected_OutputData == OutputData) {
-        std::cout << "\033[1m" <<"\033[32m" << "\n[1]DataLoader_unittest test passed successfully!" << "\033[0m" << std::endl;
+        std::cout << "\033[1m" << "\033[32m" << "\n[PASS] CSVload_test" << "\033[0m" << std::endl;
+        return true;
     } else {
-        std::cerr << "\033[1m" << "\033[41m" << "\n[1]DataLoader_unittest test failed!" << "\033[0m" << std::endl;
+        std::cerr << "\033[1m" << "\033[41m" << "\n[FAIL] CSVload_test" << "\033[0m" << std::endl;
+        return false;
+    }
+}
+
+// ========== Тест 2: Нормалізація ==========
+bool normalize_test() {
+    Matrix X = {{10.0, 20.0}, {20.0, 40.0}, {30.0, 60.0}};
+    Vector means, stds;
+
+    TDataLoader::normalize(X, means, stds);
+
+    // Перевіряємо mean
+    double eps = 1e-9;
+    bool meansOk = (std::abs(means[0] - 20.0) < eps) && (std::abs(means[1] - 40.0) < eps);
+
+    // Перевіряємо std (population std: sqrt(((10-20)^2 + (20-20)^2 + (30-20)^2) / 3) = sqrt(200/3) ≈ 8.165)
+    double expectedStd0 = std::sqrt(200.0 / 3.0);
+    double expectedStd1 = std::sqrt(800.0 / 3.0);
+    bool stdsOk = (std::abs(stds[0] - expectedStd0) < eps) && (std::abs(stds[1] - expectedStd1) < eps);
+
+    // Перевіряємо нормалізовані значення: середнє має бути ~0
+    double sumCol0 = X[0][0] + X[1][0] + X[2][0];
+    double sumCol1 = X[0][1] + X[1][1] + X[2][1];
+    bool normalizedOk = (std::abs(sumCol0) < eps) && (std::abs(sumCol1) < eps);
+
+    if (meansOk && stdsOk && normalizedOk) {
+        std::cout << "\033[1m" << "\033[32m" << "[PASS] normalize_test" << "\033[0m" << std::endl;
+        return true;
+    } else {
+        std::cerr << "\033[1m" << "\033[41m" << "[FAIL] normalize_test" << "\033[0m";
+        if (!meansOk) std::cerr << " (means wrong)";
+        if (!stdsOk) std::cerr << " (stds wrong)";
+        if (!normalizedOk) std::cerr << " (normalization wrong)";
+        std::cerr << std::endl;
+        return false;
     }
 }
 
 int main() {
-    
-    CSVload_test();
+    std::cout << "\n=== DataLoader Unit Tests ===\n";
 
-    return 0;
+    int passed = 0;
+    int total = 2;
+
+    if (CSVload_test()) passed++;
+    if (normalize_test()) passed++;
+
+    std::cout << "\n--- Results: " << passed << "/" << total << " passed ---\n\n";
+
+    return (passed == total) ? 0 : 1;
 }

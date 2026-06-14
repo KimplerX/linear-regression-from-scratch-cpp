@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(LinearRegressionFromScratch)
+project(LinearRegressionTests)
 
 set(CMAKE_CXX_STANDARD 17)
 
@@ -12,6 +12,8 @@ set(MY_LIB_FILES
 )
 
 enable_testing()
+
 add_executable(DataLoader_unittest DataLoader_unittest.cpp ${MY_LIB_FILES})
+add_test(NAME DataLoader_unittest COMMAND DataLoader_unittest)
 
 file(COPY ../data DESTINATION ${CMAKE_BINARY_DIR})

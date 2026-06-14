@@ -1,19 +1,23 @@
 #include "../../include/linear-regression-from-scratch-cpp/Model/LinearRegression.h"
-#include <iostream>
 #include <random>
-#include <ctime>
 
-LinearRegression::LinearRegression() {
-    bias = 0.0;
-    std::srand(std::time(0));
-    for (int i =1; i <=3; i++) {
-        double random_weight = (rand() % 200 - 100) / 100.0;  
-        weights.push_back(random_weight);
+LinearRegression::LinearRegression(int numFeatures) : bias(0.0) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_real_distribution<double> dist(-0.5, 0.5);
+
+    weights.resize(numFeatures);
+    for (int i = 0; i < numFeatures; i++) {
+        weights[i] = dist(gen);
     }
 }
 
 double LinearRegression::predict(const std::vector<double>& InputData) const {
-    return bias + weights[0]*InputData[0] + weights[1]*InputData[1] + weights[2]*InputData[2];
+    double result = bias;
+    for (size_t i = 0; i < weights.size(); i++) {
+        result += weights[i] * InputData[i];
+    }
+    return result;
 }
 
 const std::vector<double>& LinearRegression::getWeights() const {

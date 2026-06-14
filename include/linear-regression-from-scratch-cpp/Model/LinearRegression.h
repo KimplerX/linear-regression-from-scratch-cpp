@@ -7,7 +7,7 @@ private:
     std::vector<double> weights;
     double bias;
 public:
-    LinearRegression() {};
+    LinearRegression(int numFeatures);
 
     double predict(const std::vector<double>& InputData) const;
 
